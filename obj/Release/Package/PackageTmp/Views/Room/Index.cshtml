@@ -1,0 +1,146 @@
+﻿@model WebApplication1.ViewModel.RoomViewModel 
+@{
+    ViewBag.Title = "Index";
+}
+   
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadRoomDetail();
+        $("#btnSave").click(function () { 
+            SaveRoomData();
+            ResetRoomInformation();
+        });
+    });
+
+    function DeleteRoom(roomId) {
+        alert(roomId);
+    }
+
+    function EditRoom(roomId) {
+        alert(roomId);
+    }
+
+    function LoadRoomDetail() {
+        //divLoadRoomDetails
+        $.ajax({
+            async: true,
+            data: 'GET',
+            contentType: false,
+            processData: false,
+            url: '/Room/GetAllRooms',
+            success: function (data) {
+                $("#divLoadRoomDetails").html(data);
+            },
+            error: function () {
+                alert('There is a problem! Fix it.');
+            }
+        });
+    }
+    
+    function SaveRoomData() {
+        var formData = new FormData;
+        formData.append("RoomNumber", $("#txtRoomNumber").val());
+        formData.append("RoomPrice", $("#txtRoomPrice").val());
+        formData.append("BookingStatusId", $("#ddBookingStatus").val());
+        formData.append("RoomTypeId", $("#ddRoomType").val());
+        formData.append("RoomCapacity", $("#txtRoomCapacity").val());
+        formData.append("RoomDescription", $("#txtRoomDescription").val());
+          
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false,  
+            processData: false,
+            data: formData,
+            success: function (data) {
+                if (data.success === true) {
+                    alert(data.message);
+                    ResetRoomInformation();
+                    LoadRoomDetail();
+                }
+
+            },
+            error: function () {
+                alert('There is a problem to process your request. Please try again later.');
+            }
+        });
+    }
+
+    function ResetRoomInformation() {
+        $("#txtRoomNumber").val(' ');
+        $("#txtRoomPrice").val(' ');
+        $("#ddBookingStatus").val(' ');
+        $("#ddRoomType").val(' ');
+        $("#txtRoomCapacity").val(' ');
+        $("#txtRoomDescription").val(' ');
+        $("#txtRoomNumber").focus(' ');
+    }
+
+</script>
+
+
+
+<div style="margin-top:20px">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#divAddRoom" data-backdrop="static" data-keyboard="false"> Add Room</button>
+</div>
+
+<div id="divAddRoom" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                <h4 class="modal-title">Room </h4>
+            </div>
+            <div class="modal-body">   
+                <div class="container">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RoomNumber)
+                        @Html.TextBoxFor(model => model.RoomNumber, new { @class = "form-control", id="txtRoomNumber" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RoomPrice)
+                        @Html.TextBoxFor(model => model.RoomPrice, new { @class = "form-control", id = "txtRoomPrice" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BookingStatusId)
+                        @Html.DropDownListFor(model => model.BookingStatusId, Model.ListOfBookingStatus, new { @class = "form-control", id = "ddBookingStatus" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RoomTypeId)
+                        @Html.DropDownListFor(model => model.RoomTypeId, Model.ListOfRoomType, new { @class = "form-control", id = "ddRoomType" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RoomCapacity)
+                        @Html.TextBoxFor(model => model.RoomCapacity, new { @class = "form-control", id = "txtRoomCapacity" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RoomDescription)
+                        @Html.TextBoxFor(model => model.RoomDescription, new { @class = "form-control", id = "txtRoomDescription" })
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button id="btnSave" type="button" class="btn btn-success" > Save</button> &nbsp;
+                <button type="button" data-dismiss="modal" class="btn btn-danger" >Close </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:10px">
+
+</div>
+<div id="divLoadRoomDetails">
+
+</div>

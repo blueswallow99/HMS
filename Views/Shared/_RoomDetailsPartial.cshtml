@@ -1,0 +1,68 @@
+﻿
+
+@model IEnumerable<WebApplication1.ViewModel.RoomDetailsViewModel>
+
+<table style="width:100% ">
+    <thead>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                Room No.
+            </th>
+            <th>
+                Room Price
+            </th>
+            <th>
+                Booking Status
+            </th>
+            <th>
+                Room Type
+            </th>
+            <th>
+                Room Capacity
+            </th>
+            <th>
+                Room Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <button  id="btnDelete" class="btn" onclick="DeleteRoom(@item.RoomId)">
+                        <img src="~/assest/delete-24px.svg" />
+                       
+                    </button>
+                    <button  id="btnEdit" class="btn" onclick="EditRoom(@item.RoomId)">
+                        <img src="~/assest/baseline_create_black_18dp.png" />
+                    </button>
+                    
+                </td>
+                <td>
+                    @item.RoomNumber
+                </td>
+                <td>
+                    @item.RoomPrice
+
+                </td>
+                <td>
+                    @item.BookingStatus
+                </td>
+                <td>
+                    @item.RoomType
+                </td>
+                <td>
+                    @item.RoomCapacity
+
+                </td>
+                <td>
+                    @item.RoomDescription
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
