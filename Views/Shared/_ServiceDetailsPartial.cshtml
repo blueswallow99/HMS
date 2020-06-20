@@ -1,0 +1,51 @@
+﻿
+
+@model IEnumerable<WebApplication1.ViewModel.ServiceViewModel>
+
+
+<table style="width:100% ">
+    <thead>
+        <tr>
+           
+            <th>
+                Booking From
+            </th>
+            <th>
+                Booking To
+            </th>
+            <th>
+                Number Of Members
+            </th>
+            <th>
+               Assign Room
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    @item.BookingFrom.ToString("dd-MM-yyy")
+                    
+                </td>
+                <td>
+                    @item.BookingTo.ToString("dd-MM-yyy")
+                </td>
+                <td>
+                    @item.NoOfMembers
+
+                </td>
+                <td>
+                    @item.RoomNumber
+                </td>
+              
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

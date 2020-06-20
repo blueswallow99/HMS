@@ -1,0 +1,78 @@
+﻿
+
+@model IEnumerable<WebApplication1.ViewModel.RoleViewModel>
+
+
+<table style="width:100% ">
+    <thead>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                User Id
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                User Password
+            </th>
+            
+            <th>
+                User Role
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <button id="btnDelete" class="btn" onclick="DeleteRole(@item.UserId)">
+                        <img src="~/assest/delete-24px.svg" />
+
+                    </button>
+                    <button id="btnEdit" class="btn" onclick="EditRole(@item.UserId)">
+                        <img src="~/assest/baseline_create_black_18dp.png" />
+                    </button>
+
+                </td>
+                <td>
+                    @item.UserId
+                </td>
+                <td>
+                    @item.UserName
+
+                </td>
+                <td>
+                    @item.UserPasword
+                </td>
+                
+                <td>
+                    @switch(item.RoleId)
+                    {
+                        case 1:
+                            <p>admin</p>
+                            break;
+                        case 2:
+                            <p>Front Desk</p>
+                            break;
+                        case 3:
+                            <p>Service</p>
+                            break;
+                        default:
+                            <p>Unvalid</p>
+                            break;
+                    }
+                    
+
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
